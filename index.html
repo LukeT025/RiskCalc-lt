@@ -1,11 +1,218 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>HIRC</title>
+<meta charset="UTF-8">
+<title>RiskCalc</title>
 </head>
 <body>
-<h1>Health Insurance Calc</h1>
-<p>This page is a sample page for a Hello World Azure Static Website Template. The page contains an HTML validation warning. 
-Can you find and fix that warning?</p>
-</body>
-</html>
+<h1>Health Insureance Risk Calculator</h1>
+
+<p>-------------------------------------------------------------------</p>
+<p> You will be awsnering multiple question that will range from your age to do yo have this </p>
+<p> This will calculate your Risk of health after that and will tell ypu if you need medical help or not</p>
+<p> Make sure to also use the picture as well to chack for blood pressure</p>
+<p>-------------------------------------------------------------------</p>
+<img src="BloodPressure.png" alt="BloodPressure1" style="width: 500px;px;height:600x;"><br/>
+ <style>
+    body {
+        text-align:center;
+        background-image: url('HeartRisk.gif');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+    h1 {
+        color:rgb(255, 255, 255);
+        font-size: 300%;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    p {
+        font-size: 100%;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        color: rgb(255, 255, 255);
+    }
+    button {
+        color: rgb(119, 0, 24);
+        font-family: cursive;
+    }
+    label {
+        color: rgb(255, 255, 255);
+    }
+    select{
+        color: rgb(255, 0, 0);
+    }
+ </style>
+</head>
+<body>
+
+<label>Your Age</label>
+<select id="age">
+    <option value="0">Younger than 30</option>
+    <option value="10">30 and less than 45</option>
+    <option value="20">45 and less then 60</option>
+    <option value="30">Older or Equal to 60</option>
+</select>
+<br /><br />
+
+<label>Your Blood Pressure</label>
+<select id="blood">
+    <option value="0">Normal</option>
+    <option value="15">Elevated</option>
+    <option value="30">Stage 1</option>
+    <option value="75">Stage 2</option>
+    <option value="100">Crisis</option>
+</select>
+<br /><br />
+
+<label>Your BMI</label>
+<select id="BMI">
+    <option value="10">Underweight</option>
+    <option value="0">Normal</option>
+    <option value="30">Overweight</option>
+    <option value="60">Obese</option>
+</select>
+<br /><br />
+
+<label>Do you have Diabetes?</label>
+<select id="diabetes">
+    <option value="10">Yes</option>
+    <option value="0">No</option>
+</select>
+<br /><br />
+
+<label>Do you have Cancer?</label>
+<select id="cancer">
+    <option value="10">Yes</option>
+    <option value="0">No</option>
+</select>
+<br /><br />
+
+<label>Do you have Alzheimers?</label>
+<select id="alzheimers">
+    <option value="10">Yes</option>
+    <option value="0">No</option>
+</select>
+
+<br /><br /><br />
+<button onclick="calculateRisk()">Calculate Risk</button>
+<p id="BMIR"></p>
+<p id="Message"></p>
+
+
+<p>If you dont know you BMI This is where you can find that out just put your weight in pounds and Height in inches</p>
+<label>Your Height</label>
+<select id="height1">
+	<option value="54">4'6" or shorter</option>
+    <option value="55">4'7"</option>
+	<option value="56">4'8"</option>
+    <option value="57">4'9"</option>
+	<option value="58">4'10"</option>
+    <option value="58">4'9"</option>
+	<option value="60">5'0"</option>
+    <option value="61">5'1"</option>
+	<option value="62">5'2"</option>
+    <option value="63">5'3"</option>	
+	<option value="64">5'4"</option>
+    <option value="65">5'5"</option>
+	<option value="66">5'6"</option>
+    <option value="67">5'7"</option>
+	<option value="68">5'8"</option>
+    <option value="69">5'9"</option>
+	<option value="70">5'10"</option>
+    <option value="71">5'11"</option>
+	<option value="72">6'0"</option>
+    <option value="73">6'1"</option>
+	<option value="74">6'2"</option>
+    <option value="73">6'3"</option>
+	<option value="76">6'4" or taller</option>
+</select>
+<br><br />
+
+<label>Your weight</label>
+<select id="weight1">
+	<option value="90">90 lbs</option>
+	<option value="110">100 lbs</option>
+	<option value="120">110 lbs</option>
+	<option value="130">120 lbs</option>	
+	<option value="140">130 lbs</option>
+	<option value="150">140 lbs</option>
+    <option value="160">150 lbs</option>
+    <option value="170">160 lbs</option>
+    <option value="180">170 lbs</option>
+    <option value="190">180 lbs</option>
+	<option value="200">190 lbs</option>
+	<option value="210">200 lbs</option>
+	<option value="210">more than 200 lbs</option>
+</select>
+<br /><br />
+
+<button onclick="calculateBMI()">Calculate BMI</button>
+<p id="Result"></p>
+<p id="Message2"></p>
+
+
+<script>
+
+
+function calculateRisk() {
+	console.log("calculateRisk()");
+
+	let ageValue = parseInt(document.getElementById("age").selectedOptions[0].value);
+	
+	let bloodPressureValue = parseInt(document.getElementById("blood").selectedOptions[0].value);
+	
+    let BMIRValue = parseInt(document.getElementById("BMI").selectedOptions[0].value);
+
+	let diabetesValue = parseInt(document.getElementById("diabetes").selectedOptions[0].value);
+	
+	let cancerValue = parseInt(document.getElementById("cancer").selectedOptions[0].value);
+	
+	let alzheimersValue = parseInt(document.getElementById("alzheimers").selectedOptions[0].value);
+
+	let Risk = ageValue + BMIRValue + bloodPressureValue + diabetesValue + cancerValue + alzheimersValue;
+	
+    
+	document.getElementById("BMIR").innerHTML = "Your Risk is: " + Risk;
+
+	let message = ""
+	if (Risk <= 20) {
+		message = "Low risk"
+	} else if (Risk <= 50) {
+		message = "Moderate risk"
+	} else if (Risk <= 75) {
+		message = "High risk"
+	} else {
+		message = "Uninsurable"
+	}
+
+	document.getElementById("Message").innerHTML = message;
+}
+
+function BMI(height, weight) {
+    return (703 * weight) / (height * height)
+}
+
+function calculateBMI() {
+	let heightValue= parseInt(document.getElementById("height1").selectedOptions[0].value);
+	let weightValue = parseInt(document.getElementById("weight1").selectedOptions[0].value);
+
+	let BMIValue = BMI(heightValue, weightValue)
+
+	BMIValue = Math.round(BMIValue*10)/10
+
+	document.getElementById("Result").innerHTML = "Your BMI is: " + BMIValue;
+
+	let BMIMessage = ""
+	if (BMIValue < 18.5) {
+		BMIMessage = "Underweight"
+	} else if (BMIValue < 24.9) {
+		BMIMessage = "Normal"
+	} else if (BMIValue < 29.9) {
+		BMIMessage = "Overweight"
+	} else {
+        BMIMessage = "Obese"
+    }
+
+	document.getElementById("Message2").innerHTML = BMIMessage;
+}
+</script>
